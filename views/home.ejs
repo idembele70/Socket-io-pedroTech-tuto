@@ -8,6 +8,21 @@
   <script src='https://cdn.socket.io/socket.io-3.0.1.min.js'></script>
 </head>
 <body>
-  
+
+  <input type="text" class="message" placeholder="Enter your message">
+  <button onclick="sendMessage()">Send</button>
+  <h1>Messages</h1>
+  <script>
+    const socket = io('http://localhost:3001');
+    socket.on('connection');
+    const sendMessage = () => {
+      const message = document.querySelector('.message').value;
+      socket.emit('message', message);
+    }
+    socket.on('message', (message) => {
+      console.log(message);
+      document.querySelector('h1').innerHTML = message;
+    });
+  </script>
 </body>
 </html>
